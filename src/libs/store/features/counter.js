@@ -1,8 +1,10 @@
-import { createSlice } from "@reduxjs/toolkit";
+import {createSlice} from "@reduxjs/toolkit";
 
 const initialState = {
     value: 0,
-    step: 1
+    step: 1,
+    min: 0,
+    max: 10
 };
 
 const counterSlice = createSlice({
@@ -10,18 +12,24 @@ const counterSlice = createSlice({
     initialState,
     reducers: {
         increment: (state) => {
-            state.value += state.step;
+            if (state.value < state.max) {
+                state.value += state.step
+            }
         },
         decrement: (state) => {
-            state.value -= state.step;
+            if (state.value > state.min) {
+                state.value -= state.step;
+            }
         },
-        amount: (state, action) => {
-            state.step = action.payload
-        }
 
+        calculate: (state, action) => {
+            const {key, value} = action.payload
+
+            state[key] = value
+        }
     },
 });
 
-export const { increment, decrement, amount } = counterSlice.actions;
+export const {increment, decrement, calculate} = counterSlice.actions;
 
 export default counterSlice.reducer
