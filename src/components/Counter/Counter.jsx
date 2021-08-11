@@ -22,6 +22,7 @@ export default function Counter() {
             key: e.target.name,
             value: Number(e.target.value)
         }
+
         dispatch(calculate(payload))
     }
 
